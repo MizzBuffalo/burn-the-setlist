@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Burn the Setlist</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1a1026; --bg2:#241535; --card:#2d1b44; --line:#43305c;
+  --ink:#f6efff; --muted:#b9a8d2; --gold:#f2b84b; --gold2:#ffd98a; --pink:#ff6fae; --teal:#5fd6c4;
+  --blue:#7fb3ff; --red:#ff7b7b;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:radial-gradient(1200px 500px at 50% -200px,#4a2a6e 0%,var(--bg) 60%)}
+.wrap{max-width:860px;margin:0 auto;padding:18px 14px 80px}
+header{text-align:center;padding:18px 0 10px}
+h1{font-family:'Bricolage Grotesque',Inter,sans-serif;font-weight:800;font-size:clamp(34px,8vw,56px);line-height:.95;margin:0;letter-spacing:-.02em}
+h1 span{display:block;color:var(--gold);font-size:.5em;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-top:8px}
+.sub{color:var(--muted);margin:10px 0 0;font-size:14px}
+nav{position:sticky;top:0;z-index:5;background:rgba(26,16,38,.92);backdrop-filter:blur(8px);margin:14px -14px 0;padding:10px 14px;border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1px solid var(--line);background:var(--bg2);color:var(--muted);padding:9px 14px;border-radius:999px;font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap}
+.tab.on{background:var(--gold);color:#2a1a05;border-color:var(--gold)}
+section{display:none;padding-top:16px}
+section.on{display:block}
+.search{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);font-size:16px;margin-bottom:12px}
+.search::placeholder{color:#8a79a3}
+.count{color:var(--muted);font-size:13px;margin:0 0 10px 2px}
+.list{display:flex;flex-direction:column;gap:6px}
+.row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.row .t{font-weight:600;font-size:16px}
+.row .a{color:var(--muted);font-size:13px;margin-top:2px}
+.row .k{color:var(--teal);font-size:12px}
+.row .n{color:#d9c6f0;font-size:12px;margin-top:3px;opacity:.85}
+.row .main{flex:1;min-width:0}
+.life{flex:0 0 auto;text-align:right;font-size:12px;color:var(--muted);line-height:1.2}
+.life b{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;color:var(--gold2)}
+.life.rare b{color:#8f7ab0;font-size:13px}
+.sortbar{display:flex;gap:6px;margin:0 0 10px}
+.sortbar button{border:1px solid var(--line);background:var(--bg2);color:var(--muted);padding:6px 11px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer}
+.sortbar button.on{background:#3a2857;color:var(--ink);border-color:#5a4580}
+.legend{font-size:12px;color:#8a79a3;margin:0 0 10px 2px}
+.badge{flex:0 0 auto;min-width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px;background:#3a2857;color:#8f7ab0}
+.badge.hot{background:var(--gold);color:#2a1a05}
+.grp{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:18px 2px 8px}
+.grp:first-child{margin-top:4px}
+/* leaderboard */
+.lb{display:flex;flex-direction:column;gap:8px}
+.lbrow{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;position:relative;overflow:hidden}
+.lbrow .bar{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(242,184,75,.28),rgba(242,184,75,.06));}
+.lbrow .in{position:relative;display:flex;align-items:center;gap:12px}
+.rank{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;color:var(--gold);width:34px;text-align:center}
+.lbrow .t{font-weight:600;font-size:17px}
+.lbrow .a{color:var(--muted);font-size:13px}
+.lbrow .c{margin-left:auto;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px}
+.lbrow .c small{display:block;font-family:Inter;font-weight:500;font-size:11px;color:var(--muted);text-align:right}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:22px;text-align:center;color:var(--muted);line-height:1.5}
+.empty b{color:var(--ink);display:block;font-size:18px;margin-bottom:6px;font-family:'Bricolage Grotesque',sans-serif}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.tag.debut{background:#3b2a5e;color:var(--blue)}
+.tag.bust{background:#4a2238;color:var(--pink)}
+.tag.streak{background:#2b4a44;color:var(--teal)}
+.sc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:16px}
+.sc h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+.alb{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+.alb:last-child{border:0}
+.alb .nm{font-size:14px;font-weight:600}
+.alb .ct{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px;color:var(--gold2)}
+.alb .tr{grid-column:1/3;height:6px;border-radius:3px;background:#3a2857;overflow:hidden}
+.alb .tr i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--pink))}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 10px;text-align:center}
+.stat b{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;color:var(--gold)}
+.stat span{font-size:12px;color:var(--muted)}
+/* shows */
+.show{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}
+.show .hd{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer}
+.show .d{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;color:var(--gold);width:58px;line-height:1.1}
+.show .v{flex:1}
+.show .v b{display:block;font-size:16px}
+.show .v span{color:var(--muted);font-size:13px}
+.show .pill{font-size:12px;font-weight:600;padding:4px 9px;border-radius:999px;background:#3a2857;color:var(--muted)}
+.show .pill.live{background:var(--pink);color:#2a0a18}
+.show .pill.done{background:var(--teal);color:#06302a}
+.show ol{margin:0;padding:4px 14px 14px 46px;display:none}
+.show.open ol{display:block}
+.show li{padding:5px 0;border-bottom:1px solid var(--line);font-size:15px}
+.show li:last-child{border:0}
+.show li .cov{color:var(--muted);font-size:12px;margin-left:6px}
+.show li .new{color:var(--pink);font-size:12px;margin-left:6px}
+footer{color:#8a79a3;font-size:12px;text-align:center;margin-top:30px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Burn the Setlist<span>Brandi Carlile · The All Request Tour</span></h1>
+  <p class="sub">Every song she could play, and what the crowds are actually picking.</p>
+</header>
+<nav><div class="tabs" id="tabs">
+  <button class="tab on" data-t="board">Leaderboard</button>
+  <button class="tab" data-t="shows">Setlists</button>
+  <button class="tab" data-t="orig">Originals</button>
+  <button class="tab" data-t="cov">Covers</button>
+  <button class="tab" data-t="xmas">Holiday</button>
+</div></nav>
+
+<section id="board" class="on"></section>
+<section id="shows"></section>
+<section id="orig">
+  <input class="search" placeholder="Search her songs…" data-for="orig">
+  <div class="sortbar" data-for="orig"><button class="on" data-s="az">A to Z</button><button data-s="most">Most played ever</button></div>
+  <p class="legend">Left badge: times played on this tour. Right: times she has played it in her whole career, per setlist.fm.</p>
+  <div class="count"></div><div class="list"></div>
+</section>
+<section id="cov">
+  <input class="search" placeholder="Search covers by song or artist…" data-for="cov">
+  <div class="sortbar" data-for="cov"><button class="on" data-s="az">A to Z</button><button data-s="most">Most played ever</button></div>
+  <p class="legend">Left badge: times played on this tour. Right: times she has played it in her whole career, per setlist.fm.</p>
+  <div class="count"></div><div class="list"></div>
+</section>
+<section id="xmas">
+  <input class="search" placeholder="Search holiday songs…" data-for="xmas">
+  <div class="sortbar" data-for="xmas"><button class="on" data-s="az">A to Z</button><button data-s="most">Most played ever</button></div>
+  <p class="legend">Left badge: times played on this tour. Right: times she has played it in her whole career, per setlist.fm.</p>
+  <div class="count"></div><div class="list"></div>
+</section>
+<footer>Song library from Wikipedia and setlist.fm. Setlists added after each show.<br>Made by a fan, for the Bramily.</footer>
+</div>
+<script src="data.js"></script>
+<script>
+(function(){
+const S=window.SONGS, SHOWS=window.SHOWS;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm=s=>s.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9' ]/g,' ').replace(/\s+/g,' ').trim();
+const ORIG=new Set(['Studio Originals','Who Believes in Angels? (with Elton John)','Singles / Soundtrack','The Highwomen']);
+const byTitle={}; S.forEach(x=>{ if(!byTitle[norm(x.t)]) byTitle[norm(x.t)]=x; });
+
+// play counts
+const counts={}, lastShow={};
+SHOWS.forEach(sh=>sh.setlist.forEach(t=>{const k=norm(t); counts[k]=(counts[k]||0)+1; lastShow[k]=sh;}));
+const played=t=>counts[norm(t)]||0;
+const done=SHOWS.filter(s=>s.setlist.length).length;
+const BUST=window.BUSTOUTS||{}; const bustOf=t=>BUST[norm(t)]||BUST[t];
+const playedShows=SHOWS.filter(s=>s.setlist.length);
+function debutShow(t){const k=norm(t); return playedShows.find(s=>s.setlist.some(z=>norm(z)===k));}
+function streak(t){const k=norm(t); let n=0; for(let i=playedShows.length-1;i>=0;i--){ if(playedShows[i].setlist.some(z=>norm(z)===k)) n++; else break;} return n;}
+function tagsFor(t,showIdx){ // showIdx: index into playedShows for setlist cards, or null for leaderboard
+  let h='';
+  const d=debutShow(t);
+  if(showIdx!=null){ if(playedShows[showIdx]===d && playedShows.length>1) h+='<span class="tag debut">tour debut</span>'; }
+  const b=bustOf(t); if(b) h+=`<span class="tag bust">first since ${esc(b)}</span>`;
+  if(showIdx==null){ const n=streak(t); if(n>=2&&n===playedShows.length) h+='<span class="tag streak">every night</span>'; else if(n>=3) h+=`<span class="tag streak">${n} straight</span>`; }
+  return h;
+}
+function scorecard(){
+  const albums=[]; const seen={};
+  S.filter(x=>x.s==='Studio Originals'||x.s==='Who Believes in Angels? (with Elton John)').forEach(x=>{const a=x.s==='Studio Originals'?x.a:'Who Believes in Angels? (2025)'; if(!seen[a]){seen[a]={nm:a,tot:0,hit:0}; albums.push(seen[a]);} seen[a].tot++; if(played(x.t)) seen[a].hit++;});
+  return `<div class="sc"><h3>Album scorecard · this tour</h3>`+albums.map(a=>`<div class="alb"><div class="nm">${esc(a.nm.replace(/ \((\d{4})\)$/,' · $1'))}</div><div class="ct">${a.hit} of ${a.tot}</div><div class="tr"><i style="width:${a.tot?Math.round(a.hit/a.tot*100):0}%"></i></div></div>`).join('')+`</div>`;
+}
+
+// tabs
+const tabs=document.getElementById('tabs');
+function show(id){
+  tabs.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.t===id));
+  document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===id));
+  if(location.hash!=='#'+id) history.replaceState(null,'','#'+id);
+}
+tabs.addEventListener('click',e=>{const b=e.target.closest('.tab'); if(b) show(b.dataset.t);});
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1); if(document.getElementById(h)) show(h);});
+
+// leaderboard
+function board(){
+  const el=document.getElementById('board');
+  const total=Object.values(counts).reduce((a,b)=>a+b,0);
+  const uniq=Object.keys(counts).length;
+  let html=`<div class="stats"><div class="stat"><b>${done}</b><span>of ${SHOWS.length} shows</span></div><div class="stat"><b>${uniq}</b><span>different songs</span></div><div class="stat"><b>${total}</b><span>songs played</span></div></div>`;
+  if(!uniq){
+    const next=SHOWS.find(s=>!s.setlist.length);
+    html+=`<div class="empty"><b>Nothing to rank yet</b>First setlist lands after ${esc(next.city)} on ${esc(next.date)}. Check back then.</div>`;
+  } else {
+    const arr=Object.keys(counts).map(k=>({k,c:counts[k],x:byTitle[k],raw:k})).sort((a,b)=>b.c-a.c||a.k.localeCompare(b.k));
+    const max=arr[0].c;
+    html+='<div class="lb">'+arr.map((r,i)=>{
+      const t=r.x?r.x.t:lastShow[r.k].setlist.find(z=>norm(z)===r.k);
+      const a=r.x?(ORIG.has(r.x.s)?r.x.a:'Cover · '+r.x.a):'New to the library';
+      return `<div class="lbrow"><div class="bar" style="width:${Math.round(r.c/max*100)}%"></div><div class="in"><div class="rank">${i+1}</div><div><div class="t">${esc(t)}${tagsFor(t,null)}</div><div class="a">${esc(a)}</div></div><div class="c">${r.c}<small>${r.c===1?'show':'shows'}</small></div></div></div>`;
+    }).join('')+'</div>';
+  }
+  html+=scorecard();
+  el.innerHTML=html;
+}
+
+// setlists
+function shows(){
+  const el=document.getElementById('shows');
+  const firstOpen=[...SHOWS].reverse().find(s=>s.setlist.length);
+  el.innerHTML=SHOWS.map(sh=>{
+    const has=sh.setlist.length;
+    const pill=has?`<span class="pill done">${has} songs</span>`:`<span class="pill">coming up</span>`;
+    const si=playedShows.indexOf(sh); const items=sh.setlist.map(t=>{const x=byTitle[norm(t)]; const tag=!x?'<span class="new">new</span>':(ORIG.has(x.s)?'':`<span class="cov">${esc(x.a)}</span>`); return `<li>${esc(t)}${tag}${tagsFor(t,si)}</li>`;}).join('');
+    return `<div class="show${firstOpen===sh?' open':''}"><div class="hd"><div class="d">${esc(sh.date)}</div><div class="v"><b>${esc(sh.city)}</b><span>${esc(sh.venue)}</span></div>${pill}</div>${has?`<ol>${items}</ol>`:''}</div>`;
+  }).join('');
+  el.querySelectorAll('.hd').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
+}
+
+// song lists
+const SORT={orig:'az',cov:'az',xmas:'az'};
+function renderList(id){
+  const sec=document.getElementById(id);
+  const q=norm(sec.querySelector('.search').value||'');
+  let items;
+  if(id==='orig') items=S.filter(x=>ORIG.has(x.s));
+  else if(id==='cov') items=S.filter(x=>x.s==='Live Covers');
+  else items=S.filter(x=>x.s==='Christmas / Holiday');
+  if(q) items=items.filter(x=>norm(x.t+' '+x.a+' '+x.k).includes(q));
+  const most=SORT[id]==='most';
+  if(most) items=[...items].sort((a,b)=>(b.l||0)-(a.l||0)||a.t.localeCompare(b.t));
+  sec.querySelector('.count').textContent=items.length+' songs';
+  let html='', grp='';
+  items.forEach(x=>{
+    const g = (id==='orig'&&!most) ? (x.s==='Studio Originals'?x.a:x.s) : null;
+    if(g && g!==grp){grp=g; html+=`<div class="grp">${esc(g)}</div>`;}
+    const c=played(x.t);
+    const sub = (id==='orig'&&!most) ? (x.s==='Studio Originals'?'':x.a) : x.a;
+    const life = x.l!=null ? `<div class="life"><b>${x.l}</b>times ever</div>` : `<div class="life rare"><b>5 or fewer</b>times ever</div>`;
+    html+=`<div class="row"><div class="badge${c?' hot':''}">${c||'·'}</div><div class="main"><div class="t">${esc(x.t)}</div>${sub?`<div class="a">${esc(sub)}${x.k?` <span class="k">· known from ${esc(x.k)}</span>`:''}</div>`:''}${x.n?`<div class="n">${esc(x.n)}</div>`:''}</div>${life}</div>`;
+  });
+  sec.querySelector('.list').innerHTML=html||'<div class="empty">No match.</div>';
+}
+document.querySelectorAll('.search').forEach(i=>i.addEventListener('input',()=>renderList(i.dataset.for)));
+document.querySelectorAll('.sortbar').forEach(sb=>sb.addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; SORT[sb.dataset.for]=b.dataset.s; sb.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)); renderList(sb.dataset.for);}));
+
+board(); shows(); ['orig','cov','xmas'].forEach(renderList);
+const h=location.hash.slice(1); if(h&&document.getElementById(h)) show(h);
+})();
+</script>
+</body>
+</html>

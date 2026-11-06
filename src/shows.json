@@ -1,0 +1,17 @@
+[
+ {"n": 1, "date": "Nov 5", "city": "Portland, OR", "venue": "Revolution Hall", "setlist": []},
+ {"n": 2, "date": "Nov 7", "city": "Oakland, CA", "venue": "Fox Theater", "setlist": []},
+ {"n": 3, "date": "Nov 9", "city": "Tucson, AZ", "venue": "Rialto Theatre", "setlist": []},
+ {"n": 4, "date": "Nov 10", "city": "Tucson, AZ", "venue": "Rialto Theatre", "setlist": []},
+ {"n": 5, "date": "Nov 12", "city": "Des Moines, IA", "venue": "Des Moines Civic Center", "setlist": []},
+ {"n": 6, "date": "Nov 14", "city": "Milwaukee, WI", "venue": "The Pabst Theater", "setlist": []},
+ {"n": 7, "date": "Nov 15", "city": "Milwaukee, WI", "venue": "The Pabst Theater", "setlist": []},
+ {"n": 8, "date": "Nov 17", "city": "Minneapolis, MN", "venue": "State Theatre", "setlist": []},
+ {"n": 9, "date": "Nov 18", "city": "Minneapolis, MN", "venue": "State Theatre", "setlist": []},
+ {"n": 10, "date": "Nov 20", "city": "Louisville, KY", "venue": "The Louisville Palace", "setlist": []},
+ {"n": 11, "date": "Nov 21", "city": "Louisville, KY", "venue": "The Louisville Palace", "setlist": []},
+ {"n": 12, "date": "Nov 22", "city": "Kansas City, MO", "venue": "Uptown Theater", "setlist": []},
+ {"n": 13, "date": "Dec 15", "city": "Port Chester, NY", "venue": "The Capitol Theatre", "setlist": []},
+ {"n": 14, "date": "Dec 16", "city": "Port Chester, NY", "venue": "The Capitol Theatre", "setlist": []},
+ {"n": 15, "date": "Dec 17", "city": "Port Chester, NY", "venue": "The Capitol Theatre", "setlist": []}
+]
