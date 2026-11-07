@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 2. Laminate</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07181b;--bg2:#0d2428;--pink:#ff2d7a;--lime:#c8ff3d;--wh:#f2fff4;--dim:#7fa3a3;--line:#1d3a3e}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--wh);font-family:Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 14px 100px}
+.demo{background:var(--lime);color:#000;font-family:'Space Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:6px}
+.mono{font-family:'Space Mono',monospace}
+/* lanyard + laminate */
+.lanyard{height:64px;margin:0 auto;width:26px;background:repeating-linear-gradient(0deg,var(--pink) 0 6px,#b0164f 6px 12px);position:relative}
+.lanyard::after{content:"";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);width:44px;height:16px;border-radius:8px;background:#cfd8d6}
+.lam{background:#0b0b0b;border:3px solid #e6e6e6;border-radius:14px;padding:14px;position:relative;overflow:hidden;margin-top:10px}
+.lam .stripe{position:absolute;left:-40px;right:-40px;top:0;height:46px;background:repeating-linear-gradient(135deg,var(--pink) 0 18px,#000 18px 36px)}
+.lam .hole{width:38px;height:12px;border-radius:6px;background:var(--bg);margin:6px auto 12px;position:relative;z-index:1;border:2px solid #e6e6e6}
+.lam .access{font-family:'Archivo Black';font-size:13px;letter-spacing:.34em;text-transform:uppercase;color:var(--lime);margin:12px 0 2px}
+.lam h1{font-family:'Archivo Black';font-size:clamp(44px,13vw,92px);line-height:.88;margin:0;letter-spacing:-.03em;text-transform:uppercase;color:#fff}
+.lam h1 span{color:var(--pink)}
+.lam .sub{font-family:'Space Mono';font-size:12px;color:var(--dim);margin:12px 0 0;letter-spacing:.02em}
+.lam .row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:14px;gap:10px}
+.lam .stamp{font-family:'Archivo Black';font-size:18px;color:var(--pink);border:3px solid var(--pink);padding:4px 10px;transform:rotate(-6deg);text-transform:uppercase;letter-spacing:.06em}
+.barcode{height:38px;flex:1;max-width:170px;background:repeating-linear-gradient(90deg,#fff 0 2px,transparent 2px 4px,#fff 4px 5px,transparent 5px 9px,#fff 9px 12px,transparent 12px 14px,#fff 14px 15px,transparent 15px 19px)}
+.stats{display:flex;gap:8px;margin:16px 0}
+.stat{flex:1;border:2px solid var(--line);padding:10px 8px;font-family:'Space Mono';font-size:11px;color:var(--dim);text-transform:uppercase}
+.stat b{display:block;font-family:'Archivo Black';font-size:34px;line-height:1;color:var(--lime);margin-bottom:4px}
+.h2{font-family:'Space Mono';font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--pink);margin:26px 0 10px}
+.h2::before{content:"// "}
+/* headliner */
+.one{background:var(--lime);color:#000;padding:18px 16px;border:3px solid var(--pink);box-shadow:8px 8px 0 var(--pink);margin:0 8px 22px 0;position:relative}
+.one .k{font-family:'Space Mono';font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+.one .t{font-family:'Archivo Black';font-size:clamp(34px,10vw,64px);line-height:.92;letter-spacing:-.02em;margin:6px 0;text-transform:uppercase}
+.one .a{font-family:'Space Mono';font-size:13px}
+.one .n{font-family:'Archivo Black';font-size:26px;margin-top:10px}
+.tag{display:inline-block;font-family:'Space Mono';font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;margin:4px 4px 0 0;background:var(--pink);color:#000}
+.tag.bust{background:var(--lime);color:#000}
+.one .tag{background:#000;color:var(--lime)}
+.one .tag.bust{background:var(--pink);color:#000}
+/* ranks */
+.lb{list-style:none;margin:0;padding:0}
+.lb li{display:grid;grid-template-columns:56px 1fr auto;gap:0 10px;align-items:center;padding:10px 0;border-bottom:2px solid var(--line)}
+.lb .rk{font-family:'Space Mono';font-weight:700;font-size:28px;color:var(--pink);grid-area:1/1/3/2;}
+.lb .t{grid-area:1/2/2/3;font-family:'Archivo Black';font-size:19px;line-height:1.05;text-transform:uppercase;letter-spacing:-.01em}
+.lb .a{grid-area:2/2/3/3;font-family:'Space Mono';font-size:11px;color:var(--dim);margin-top:4px}
+.lb .c{font-family:'Archivo Black';font-size:26px;color:var(--lime);grid-area:1/3/3/4;text-align:right}
+.lb .c small{display:block;font-family:'Space Mono';font-size:10px;color:var(--dim);text-transform:uppercase}
+.lb .bar{grid-area:3/2/4/4;height:8px;margin-top:6px;background:repeating-linear-gradient(135deg,#1d3a3e 0 6px,transparent 6px 12px)}
+.lb .bar i{display:block;height:100%;background:repeating-linear-gradient(135deg,var(--pink) 0 6px,#000 6px 12px)}
+/* scorecard */
+.alb{display:grid;grid-template-columns:1fr auto;gap:0 10px;padding:8px 0;border-bottom:2px solid var(--line);align-items:center}
+.alb .nm{font-family:'Archivo Black';font-size:15px;text-transform:uppercase}
+.alb .nm i{font-style:normal;font-family:'Space Mono';font-size:11px;color:var(--dim);margin-left:6px}
+.alb .ct{font-family:'Space Mono';font-weight:700;font-size:14px;color:var(--lime)}
+.alb .tr{grid-column:1/3;height:8px;background:#102a2e;margin-top:6px}
+.alb .tr i{display:block;height:100%;background:var(--lime)}
+/* covers */
+.search{width:100%;padding:13px 14px;border:2px solid var(--line);background:#041214;color:var(--wh);font-size:16px;font-family:'Space Mono';margin:12px 0 10px;border-radius:0}
+.search:focus{outline:none;border-color:var(--lime)}
+.bar2{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.count{font-family:'Space Mono';font-size:12px;color:var(--dim);text-transform:uppercase}
+.sortbar{display:flex;gap:6px}
+.sortbar button{border:2px solid var(--line);background:none;color:var(--dim);padding:6px 10px;font-family:'Space Mono';font-weight:700;font-size:11px;text-transform:uppercase;cursor:pointer}
+.sortbar button.on{background:var(--pink);border-color:var(--pink);color:#000}
+.artist{margin-top:24px}
+.cred{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end;border-bottom:3px solid var(--lime);padding-bottom:8px}
+.cred b{font-family:'Archivo Black';font-weight:400;font-size:26px;line-height:.95;text-transform:uppercase;letter-spacing:-.02em;color:var(--lime)}
+.cred small{display:block;font-family:'Space Mono';font-size:11px;color:var(--pink);margin-top:4px}
+.cred .code{text-align:right}
+.cred .code .bc{height:22px;width:84px;margin-left:auto;background:repeating-linear-gradient(90deg,#fff 0 1px,transparent 1px 3px,#fff 3px 5px,transparent 5px 8px,#fff 8px 9px,transparent 9px 11px)}
+.cred .code span{display:block;font-family:'Space Mono';font-size:10px;color:var(--dim);margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
+.song{display:grid;grid-template-columns:1fr auto auto;gap:0 12px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line)}
+.song .t{font-size:16px;font-weight:600;line-height:1.2}
+.song .t .n{display:block;font-family:'Space Mono';font-size:11px;color:var(--dim);font-weight:400}
+.song .life{font-family:'Space Mono';font-weight:700;font-size:17px;color:var(--wh);min-width:40px;text-align:right}
+.song .life.rare{font-size:9px;color:#3f6166;text-transform:uppercase}
+.song .tour{min-width:34px;height:26px;padding:0 6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono';font-weight:700;font-size:13px;border:2px solid var(--line);color:#3f6166}
+.song .tour.hot{background:var(--lime);border-color:var(--lime);color:#000}
+/* tabs */
+nav{position:fixed;left:0;right:0;bottom:0;z-index:9;background:#000;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
+.tabs{display:flex;gap:4px;max-width:720px;margin:0 auto}
+.tab{flex:1;background:#111;border:2px solid #222;color:var(--dim);padding:9px 2px;font-family:'Space Mono';font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;border-radius:3px}
+.tab.on{background:var(--pink);border-color:var(--pink);color:#000;transform:rotate(-2deg)}
+section{display:none}section.on{display:block}
+.empty{text-align:center;color:var(--dim);padding:30px 0;font-family:'Space Mono';font-size:13px}
+</style>
+</head>
+<body>
+<div id="demo"></div>
+<div class="wrap">
+<div class="lanyard"></div>
+<header class="lam">
+  <div class="stripe"></div>
+  <div class="hole"></div>
+  <div class="access">All access · All request</div>
+  <h1>Burn the<br><span>Setlist</span></h1>
+  <p class="sub">BRANDI CARLILE / FALL 2026 / 15 NIGHTS</p>
+  <div class="row"><div class="barcode"></div><div class="stamp">Bramily</div></div>
+</header>
+<section id="board" class="on"></section>
+<section id="shows"><div class="empty">Setlists tab in the full build.</div></section>
+<section id="orig"><div class="empty">Originals tab in the full build.</div></section>
+<section id="cov">
+  <input class="search" placeholder="search covers by song or artist">
+  <div class="bar2"><div class="count"></div><div class="sortbar"><button class="on" data-s="az">By artist</button><button data-s="most">Most played</button></div></div>
+  <div class="list"></div>
+</section>
+<section id="xmas"><div class="empty">Holiday tab in the full build.</div></section>
+</div>
+<nav><div class="tabs" id="tabs">
+  <button class="tab on" data-t="board">Chart</button><button class="tab" data-t="shows">Setlists</button><button class="tab" data-t="orig">Originals</button><button class="tab" data-t="cov">Covers</button><button class="tab" data-t="xmas">Holiday</button>
+</div></nav>
+<script src="../data.js"></script>
+<script src="_shared.js"></script>
+<script>
+(function(){
+const M=window.M, esc=M.esc;
+if(M.DEMO) document.getElementById('demo').innerHTML='<div class="demo">Sample data preview. Three made up setlists added.</div>';
+const tags=(arr)=>arr.map(t=>`<span class="tag ${t.cls}">${esc(t.txt)}</span>`).join('');
+function board(){
+  const el=document.getElementById('board');
+  let h=`<div class="stats"><div class="stat"><b>${M.done}</b>of ${M.SHOWS.length} shows</div><div class="stat"><b>${M.uniq}</b>different songs</div><div class="stat"><b>${M.total}</b>songs played</div></div>`;
+  const lb=M.leaderboard();
+  if(!lb.length){ h+=`<div class="empty">Nothing on the board yet. First setlist lands after ${esc(M.nextShow.city)} on ${esc(M.nextShow.date)}.</div>`; }
+  else{
+    const one=lb[0], max=one.c;
+    h+=`<div class="h2">Headliner</div><div class="one"><div class="k">No. 1 most requested</div><div class="t">${esc(one.t)}</div><div class="a">${esc(one.label)}</div><div class="n">${one.c} of ${M.done} nights</div>${tags(one.tags)}</div>
+    <div class="h2">Running order</div><ol class="lb">`+lb.slice(1).map(r=>`<li><div class="rk">${String(r.rank).padStart(2,'0')}</div><div class="t">${esc(r.t)}</div><div class="c">${r.c}<small>${r.c===1?'show':'shows'}</small></div><div class="a">${esc(r.label)} ${tags(r.tags)}</div><div class="bar"><i style="width:${Math.round(r.c/max*100)}%"></i></div></li>`).join('')+'</ol>';
+  }
+  h+=`<div class="h2">Album scorecard</div>`+M.scorecard().map(a=>`<div class="alb"><div class="nm">${esc(a.name)}<i>${a.year}</i></div><div class="ct">${a.hit}/${a.tot}</div><div class="tr"><i style="width:${a.pct}%"></i></div></div>`).join('');
+  el.innerHTML=h;
+}
+let sort='az';
+function song(s,sub){
+  const life=s.l!=null?`<div class="life">${s.l}</div>`:`<div class="life rare">under 6</div>`;
+  return `<div class="song"><div class="t">${esc(s.t)}${sub?`<span class="n">${esc(sub)}</span>`:''}</div>${life}<div class="tour${s.c?' hot':''}">${s.c?'x'+s.c:'·'}</div></div>`;
+}
+function covers(){
+  const sec=document.getElementById('cov'); const q=sec.querySelector('.search').value;
+  let h='';
+  if(sort==='most'){ const arr=M.coverFlat(q); sec.querySelector('.count').textContent=arr.length+' songs'; h=arr.map(s=>song(s,s.a)).join(''); }
+  else{ const {groups,count}=M.coverGroups(q); sec.querySelector('.count').textContent=count+' songs';
+    h=groups.map(g=>`<div class="artist"><div class="cred"><div><b>${esc(g.artist)}</b>${g.known?`<small>known from ${esc(g.known)}</small>`:''}</div><div class="code"><div class="bc"></div><span>${g.songs.length} song${g.songs.length>1?'s':''}${g.tot?` · ${g.tot} plays`:''}</span></div></div>${g.songs.map(s=>song(s,s.n)).join('')}</div>`).join(''); }
+  sec.querySelector('.list').innerHTML=h||'<div class="empty">No match.</div>';
+}
+document.querySelector('.search').addEventListener('input',covers);
+document.querySelector('.sortbar').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; sort=b.dataset.s; document.querySelectorAll('.sortbar button').forEach(x=>x.classList.toggle('on',x===b)); covers();});
+const tabs=document.getElementById('tabs');
+function show(id){tabs.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.t===id));document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===id));window.scrollTo(0,0);}
+tabs.addEventListener('click',e=>{const b=e.target.closest('.tab'); if(b) show(b.dataset.t);});
+board(); covers();
+const h=location.hash.slice(1); if(h&&document.getElementById(h)) show(h);
+})();
+</script>
+</body>
+</html>
