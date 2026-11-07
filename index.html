@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0b0c;--bg2:#141416;--bg3:#1e1e21;--wh:#f5f3ee;--mid:#a9a69f;--dim:#6f6d67;--acc:#b8352f;--em:#e8622f;--em2:#ffb27a;--bone:#ece2d2;--char:#332523;--line:#242427}
+:root{--bg:#0b0b0c;--bg2:#141416;--bg3:#1e1e21;--wh:#f5f3ee;--mid:#d3cfc6;--dim:#9a968d;--acc:#b8352f;--em:#e8622f;--em2:#ffb27a;--bone:#ece2d2;--char:#332523;--line:#242427}
 *{box-sizing:border-box}
 html{background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--wh);font-family:Barlow,system-ui,sans-serif;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
@@ -48,8 +48,8 @@ section{display:none}section.on{display:block}
 .lb .a .tag{margin-left:2px}
 .lb .c{grid-area:1/3/3/4;font-family:Anton,Impact,sans-serif;font-size:30px;text-align:right;line-height:1}
 .lb .c small{display:block;font-family:Barlow,sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
-.match{position:relative;height:8px;background:var(--bone);border-radius:4px}
-.match i{position:absolute;left:0;top:0;bottom:0;background:var(--char);border-radius:4px 0 0 4px}
+.match{position:relative;height:8px;background:#2a2320;border-radius:4px}
+.match i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#3a1d12,#8a2e18 45%,var(--em) 85%,var(--em2));border-radius:4px 0 0 4px;box-shadow:0 0 8px rgba(232,98,47,.35)}
 .match i::after{content:"";position:absolute;right:-5px;top:-3px;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle,var(--em2),var(--em) 45%,rgba(232,98,47,0) 72%);box-shadow:0 0 12px rgba(232,98,47,.7)}
 .match i.full{border-radius:4px}
 .match i.full::after{right:-4px}
@@ -235,9 +235,8 @@ const SORT={orig:'az',cov:'az',xmas:'az'};
 function songRow(x){
   const c=played(x.t);
   const life=x.l!=null?`<div class="life">${x.l}</div>`:`<div class="life rare">under 6</div>`;
-  const k=x.k?`<span class="n">known from ${esc(x.k)}</span>`:'';
   const n=x.n?`<span class="n">${esc(x.n)}</span>`:'';
-  return `<div class="song"><div class="t">${esc(x.t)}${n}${k}</div>${life}<div class="tour${c?' hot':''}">${c||'·'}</div></div>`;
+  return `<div class="song"><div class="t">${esc(x.t)}${n}</div>${life}<div class="tour${c?' hot':''}">${c||'·'}</div></div>`;
 }
 function renderList(id){
   const sec=document.getElementById(id);
@@ -259,7 +258,7 @@ function renderList(id){
   } else {
     const groups=[]; const g={};
     items.forEach(x=>{const a=x.a; if(!g[a]){g[a]=[]; groups.push(a);} g[a].push(x);});
-    html=groups.map(a=>{const arr=g[a]; const tot=arr.reduce((s,x)=>s+(x.l||0),0); const k=arr[0].k; return `<div class="artist"><div class="hd"><div><b>${esc(a)}</b>${k?`<small>known from ${esc(k)}</small>`:''}</div><div class="m">${arr.length} song${arr.length>1?'s':''}${tot?`<br>${tot} plays`:''}</div></div>${arr.map(x=>songRow(Object.assign({},x,{k:''}))).join('')}</div>`;}).join('');
+    html=groups.map(a=>{const arr=g[a]; const tot=arr.reduce((s,x)=>s+(x.l||0),0); const k=arr[0].k; return `<div class="artist"><div class="hd"><div><b>${esc(a)}</b></div><div class="m">${arr.length} song${arr.length>1?'s':''}${tot?`<br>${tot} plays`:''}</div></div>${arr.map(x=>songRow(Object.assign({},x,{k:''}))).join('')}</div>`;}).join('');
   }
   sec.querySelector('.list').innerHTML=html||'<div class="empty">No match.</div>';
 }
