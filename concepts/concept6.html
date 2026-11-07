@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 6. Concrete</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#4a4c50;--bg2:#3f4145;--bg3:#55575c;--wh:#f4f1ec;--mid:#c9c5bd;--dim:#9b978f;--acc:#e3a98a;--line:#606267}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--wh);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:26px 18px 96px}
+.demo{background:var(--acc);color:#2a2a2a;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:6px}
+.serif{font-family:'DM Serif Display',serif;font-weight:400}
+header .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin:0 0 10px}
+header h1{font-family:'DM Serif Display';font-weight:400;font-size:clamp(50px,14vw,96px);line-height:.92;margin:0;letter-spacing:-.02em}
+header h1 em{font-style:italic;color:var(--acc)}
+header .sub{font-family:'DM Serif Display';font-style:italic;font-size:18px;color:var(--mid);margin:12px 0 0}
+.stats{display:flex;gap:18px;margin:26px 0 4px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat b{display:block;font-family:'DM Serif Display';font-weight:400;font-size:40px;line-height:1}
+.stat span{font-size:12px;color:var(--mid)}
+.h2{font-family:'DM Serif Display';font-style:italic;font-size:22px;color:var(--mid);margin:30px 0 12px}
+/* number one */
+.one{display:grid;grid-template-columns:auto 1fr;gap:0 14px;align-items:start;padding:8px 0 18px;border-bottom:1px solid var(--line)}
+.one .rk{font-family:'DM Serif Display';font-size:120px;line-height:.8;color:var(--acc);margin-top:6px}
+.one .t{font-family:'DM Serif Display';font-size:clamp(30px,9vw,54px);line-height:1;letter-spacing:-.02em;margin-top:8px}
+.one .a{font-size:14px;color:var(--mid);margin-top:8px}
+.one .n{font-family:'DM Serif Display';font-size:22px;margin-top:10px}
+.one .n i{font-style:italic;color:var(--acc)}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;margin:6px 4px 0 0;border-radius:999px;background:var(--bg3);color:var(--wh)}
+.tag.bust{background:var(--acc);color:#2a2a2a}
+.lb{list-style:none;margin:0;padding:0}
+.lb li{display:grid;grid-template-columns:40px 1fr auto;gap:0 10px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}
+.lb .rk{grid-area:1/1/3/2;font-family:'DM Serif Display';font-size:28px;color:var(--mid);align-self:start}
+.lb .t{grid-area:1/2/2/3;font-family:'DM Serif Display';font-size:24px;line-height:1.05;letter-spacing:-.01em}
+.lb .a{grid-area:2/2/3/3;font-size:13px;color:var(--mid);margin-top:4px}
+.lb .c{grid-area:1/3/3/4;font-family:'DM Serif Display';font-size:28px;text-align:right;align-self:start}
+.lb .c small{display:block;font-family:'DM Sans';font-size:11px;color:var(--mid)}
+.lb .bar{grid-area:3/2/4/4;height:3px;background:var(--bg2);margin-top:10px}
+.lb .bar i{display:block;height:100%;background:var(--acc)}
+.alb{display:grid;grid-template-columns:1fr auto;gap:0 10px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+.alb .nm{font-family:'DM Serif Display';font-size:19px}
+.alb .nm i{font-style:italic;font-size:14px;color:var(--mid);margin-left:6px}
+.alb .ct{font-family:'DM Serif Display';font-size:19px}
+.alb .tr{grid-column:1/3;height:3px;background:var(--bg2);margin-top:6px}
+.alb .tr i{display:block;height:100%;background:var(--wh)}
+/* covers */
+.search{width:100%;padding:13px 14px;border:1px solid var(--line);background:var(--bg2);color:var(--wh);font-size:16px;font-family:inherit;margin:0 0 12px;border-radius:999px}
+.search::placeholder{color:var(--dim)}
+.search:focus{outline:none;border-color:var(--acc)}
+.bar2{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.count{font-size:13px;color:var(--mid)}
+.sortbar{display:flex;gap:4px;background:var(--bg2);padding:3px;border-radius:999px}
+.sortbar button{border:0;background:none;color:var(--mid);padding:6px 12px;font-family:inherit;font-weight:500;font-size:13px;border-radius:999px;cursor:pointer}
+.sortbar button.on{background:var(--wh);color:#2a2a2a}
+.artist{margin-top:28px}
+.artist .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px solid var(--wh);padding-bottom:6px}
+.artist .hd b{font-family:'DM Serif Display';font-weight:400;font-size:26px;line-height:1}
+.artist .hd small{display:block;font-size:12.5px;color:var(--acc);margin-top:4px}
+.artist .hd .m{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);white-space:nowrap;text-align:right;line-height:1.35}
+.song{display:grid;grid-template-columns:1fr auto auto;gap:0 14px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.song .t{font-size:16.5px;font-weight:500;line-height:1.25}
+.song .t .n{display:block;font-size:12px;color:var(--mid);font-weight:400}
+.song .life{font-family:'DM Serif Display';font-size:22px;min-width:36px;text-align:right}
+.song .life.rare{font-family:'DM Sans';font-size:11px;color:var(--dim)}
+.song .tour{min-width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:1px solid var(--line);color:var(--dim)}
+.song .tour.hot{background:var(--acc);border-color:var(--acc);color:#2a2a2a}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:9;background:var(--bg2);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabs{display:flex;max-width:720px;margin:0 auto}
+.tab{flex:1;background:none;border:0;color:var(--mid);padding:14px 2px;font-family:'DM Serif Display';font-size:16px;cursor:pointer;border-top:2px solid transparent;margin-top:-1px}
+.tab.on{color:var(--wh);border-top-color:var(--acc)}
+section{display:none}section.on{display:block}
+.empty{text-align:center;color:var(--mid);padding:30px 0;font-family:'DM Serif Display';font-style:italic;font-size:18px}
+</style>
+</head>
+<body>
+<div id="demo"></div>
+<div class="wrap">
+<header>
+  <p class="k">Brandi Carlile · All Request Tour · Fall 2026</p>
+  <h1>Burn <em>the</em> Setlist</h1>
+  <p class="sub">What the crowds are actually picking.</p>
+</header>
+<section id="board" class="on"></section>
+<section id="shows"><div class="empty">Setlists tab in the full build.</div></section>
+<section id="orig"><div class="empty">Originals tab in the full build.</div></section>
+<section id="cov">
+  <input class="search" placeholder="Search covers by song or artist">
+  <div class="bar2"><div class="count"></div><div class="sortbar"><button class="on" data-s="az">By artist</button><button data-s="most">Most played</button></div></div>
+  <div class="list"></div>
+</section>
+<section id="xmas"><div class="empty">Holiday tab in the full build.</div></section>
+</div>
+<nav><div class="tabs" id="tabs">
+  <button class="tab on" data-t="board">Chart</button><button class="tab" data-t="shows">Setlists</button><button class="tab" data-t="orig">Originals</button><button class="tab" data-t="cov">Covers</button><button class="tab" data-t="xmas">Holiday</button>
+</div></nav>
+<script src="../data.js"></script>
+<script src="_shared.js"></script>
+<script>
+(function(){
+const M=window.M, esc=M.esc;
+if(M.DEMO) document.getElementById('demo').innerHTML='<div class="demo">Sample data preview. Three made up setlists added.</div>';
+const tags=(arr)=>arr.map(t=>`<span class="tag ${t.cls}">${esc(t.txt)}</span>`).join('');
+function board(){
+  const el=document.getElementById('board');
+  let h=`<div class="stats"><div class="stat"><b>${M.done}</b><span>of ${M.SHOWS.length} shows</span></div><div class="stat"><b>${M.uniq}</b><span>different songs</span></div><div class="stat"><b>${M.total}</b><span>songs played</span></div></div>`;
+  const lb=M.leaderboard();
+  if(!lb.length){ h+=`<div class="empty">Nothing to rank yet. First setlist lands after ${esc(M.nextShow.city)} on ${esc(M.nextShow.date)}.</div>`; }
+  else{
+    const one=lb[0], max=one.c;
+    h+=`<div class="h2">Most requested so far</div><div class="one"><div class="rk">1</div><div><div class="t">${esc(one.t)}</div><div class="a">${esc(one.label)}</div><div class="n">${one.c} of ${M.done} <i>nights</i></div><div>${tags(one.tags)}</div></div></div>
+    <ol class="lb">`+lb.slice(1).map(r=>`<li><div class="rk">${r.rank}</div><div class="t">${esc(r.t)}</div><div class="c">${r.c}<small>${r.c===1?'night':'nights'}</small></div><div class="a">${esc(r.label)} ${tags(r.tags)}</div><div class="bar"><i style="width:${Math.round(r.c/max*100)}%"></i></div></li>`).join('')+'</ol>';
+  }
+  h+=`<div class="h2">Album scorecard</div>`+M.scorecard().map(a=>`<div class="alb"><div class="nm">${esc(a.name)}<i>${a.year}</i></div><div class="ct">${a.hit} of ${a.tot}</div><div class="tr"><i style="width:${a.pct}%"></i></div></div>`).join('');
+  el.innerHTML=h;
+}
+let sort='az';
+function song(s,sub){
+  const life=s.l!=null?`<div class="life">${s.l}</div>`:`<div class="life rare">under 6</div>`;
+  return `<div class="song"><div class="t">${esc(s.t)}${sub?`<span class="n">${esc(sub)}</span>`:''}</div>${life}<div class="tour${s.c?' hot':''}">${s.c||'·'}</div></div>`;
+}
+function covers(){
+  const sec=document.getElementById('cov'); const q=sec.querySelector('.search').value;
+  let h='';
+  if(sort==='most'){ const arr=M.coverFlat(q); sec.querySelector('.count').textContent=arr.length+' songs'; h=arr.map(s=>song(s,s.a)).join(''); }
+  else{ const {groups,count}=M.coverGroups(q); sec.querySelector('.count').textContent=count+' songs';
+    h=groups.map(g=>`<div class="artist"><div class="hd"><div><b>${esc(g.artist)}</b>${g.known?`<small>known from ${esc(g.known)}</small>`:''}</div><div class="m">${g.songs.length} song${g.songs.length>1?'s':''}${g.tot?`<br>${g.tot} plays`:''}</div></div>${g.songs.map(s=>song(s,s.n)).join('')}</div>`).join(''); }
+  sec.querySelector('.list').innerHTML=h||'<div class="empty">No match.</div>';
+}
+document.querySelector('.search').addEventListener('input',covers);
+document.querySelector('.sortbar').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; sort=b.dataset.s; document.querySelectorAll('.sortbar button').forEach(x=>x.classList.toggle('on',x===b)); covers();});
+const tabs=document.getElementById('tabs');
+function show(id){tabs.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.t===id));document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===id));window.scrollTo(0,0);}
+tabs.addEventListener('click',e=>{const b=e.target.closest('.tab'); if(b) show(b.dataset.t);});
+board(); covers();
+})();
+</script>
+</body>
+</html>
