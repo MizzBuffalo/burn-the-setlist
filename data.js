@@ -5,7 +5,40 @@ window.SHOWS=[
   "date": "Nov 5",
   "city": "Portland, OR",
   "venue": "Revolution Hall",
-  "setlist": []
+  "setlist": [
+   "Follow",
+   "A War with Time",
+   "Pride and Joy",
+   "Fake Plastic Trees",
+   "Human",
+   "Keep Your Heart Young",
+   "Bring My Flowers Now",
+   "Dying Day",
+   "Josephine",
+   "A Woman Oversees",
+   "Church & State",
+   "The Joke",
+   "The Eye",
+   "Madman Across the Water",
+   "Turpentine",
+   "Heart's Content",
+   "Forever Young",
+   "Most of All",
+   "Crowded Table",
+   "Hallelujah",
+   "Beginning to Feel the Years"
+  ],
+  "soundcheck": [
+   "Pride and Joy",
+   "Have You Ever",
+   "Way to You",
+   "Hard Way Home",
+   "Party of One",
+   "Madman Across the Water",
+   "Ghost",
+   "Happy",
+   "Cannonball"
+  ]
  },
  {
   "n": 2,
