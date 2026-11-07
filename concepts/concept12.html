@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 12. Smolder</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#2a2b2f;--bg2:#222326;--bg3:#35363b;--wh:#f2efe9;--mid:#b6b2aa;--dim:#7f7c75;--em:#ff7a3d;--em2:#ffb15c;--line:#3f4045}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--wh);font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:24px 16px 96px}
+.demo{background:var(--em);color:#1a1a1a;font-family:Syne;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:6px}
+header{position:relative;padding-bottom:18px}
+header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--em2),var(--em) 40%,transparent);box-shadow:0 0 14px rgba(255,122,61,.45)}
+header .k{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin:0 0 8px}
+header h1{font-family:Syne;font-weight:800;font-size:clamp(46px,13.5vw,96px);line-height:.9;margin:0;letter-spacing:-.04em}
+header h1 span{color:var(--em);text-shadow:0 0 22px rgba(255,122,61,.35)}
+header .sub{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin:12px 0 0}
+.stats{display:flex;gap:10px;margin:18px 0 0}
+.stat{flex:1;background:var(--bg2);padding:12px 12px 10px;border-bottom:2px solid var(--line)}
+.stat b{display:block;font-family:Syne;font-weight:800;font-size:36px;line-height:1;letter-spacing:-.03em}
+.stat span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.h2{font-family:Syne;font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin:30px 0 12px}
+.one{position:relative;padding:4px 0 20px;margin-bottom:6px}
+.one::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--em2),var(--em));box-shadow:0 0 18px rgba(255,122,61,.6),0 0 40px rgba(255,122,61,.25)}
+.one .k{font-family:Syne;font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--em)}
+.one .t{font-family:Syne;font-weight:800;font-size:clamp(36px,11vw,70px);line-height:.92;letter-spacing:-.04em;margin:6px 0 8px}
+.one .a{font-size:14px;color:var(--mid)}
+.one .n{font-family:Syne;font-weight:800;font-size:26px;margin-top:10px;color:var(--em2);letter-spacing:-.02em}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;margin:6px 4px 0 0;background:var(--bg3);color:var(--wh);border-radius:2px}
+.tag.bust{background:var(--em);color:#1a1a1a}
+.lb{list-style:none;margin:0;padding:0}
+.lb li{display:grid;grid-template-columns:40px 1fr auto;gap:0 10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.lb .rk{grid-area:1/1/3/2;font-family:Syne;font-weight:800;font-size:22px;color:var(--dim);align-self:start;padding-top:2px}
+.lb .t{grid-area:1/2/2/3;font-family:Syne;font-weight:800;font-size:23px;line-height:1.02;letter-spacing:-.03em}
+.lb .a{grid-area:2/2/3/3;font-size:12.5px;color:var(--mid);margin-top:4px}
+.lb .c{grid-area:1/3/3/4;font-family:Syne;font-weight:800;font-size:28px;text-align:right;line-height:1;letter-spacing:-.03em}
+.lb .c small{display:block;font-family:'IBM Plex Sans';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)}
+.lb .bar{grid-area:3/2/4/4;height:3px;background:var(--bg3);margin-top:9px;position:relative}
+.lb .bar i{display:block;height:100%;background:linear-gradient(90deg,#9a3f1e,var(--em) 70%,var(--em2));box-shadow:0 0 10px rgba(255,122,61,.55)}
+.alb{display:grid;grid-template-columns:1fr auto;gap:0 10px;padding:9px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.alb .nm{font-family:Syne;font-weight:700;font-size:17px;letter-spacing:-.02em}
+.alb .nm i{font-style:normal;font-family:'IBM Plex Sans';font-size:12px;color:var(--mid);margin-left:6px}
+.alb .ct{font-family:Syne;font-weight:800;font-size:16px;color:var(--em2)}
+.alb .tr{grid-column:1/3;height:3px;background:var(--bg3);margin-top:6px}
+.alb .tr i{display:block;height:100%;background:linear-gradient(90deg,#9a3f1e,var(--em) 70%,var(--em2));box-shadow:0 0 8px rgba(255,122,61,.4)}
+.search{width:100%;padding:13px 14px;border:1px solid var(--line);background:var(--bg2);color:var(--wh);font-size:16px;font-family:inherit;margin:0 0 10px;border-radius:3px}
+.search::placeholder{color:var(--dim)}
+.search:focus{outline:none;border-color:var(--em);box-shadow:0 0 0 3px rgba(255,122,61,.15)}
+.bar2{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.count{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.sortbar{display:flex;gap:6px}
+.sortbar button{border:1px solid var(--line);background:none;color:var(--mid);padding:6px 11px;font-family:Syne;font-weight:700;font-size:12px;cursor:pointer;border-radius:3px}
+.sortbar button.on{border-color:var(--em);color:var(--em)}
+.artist{margin-top:26px}
+.artist .hd{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;padding-bottom:8px;position:relative}
+.artist .hd::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--em),transparent 60%)}
+.artist .hd b{font-family:Syne;font-weight:800;font-size:27px;line-height:1;letter-spacing:-.03em}
+.artist .hd small{display:block;font-family:'IBM Plex Sans';font-size:12px;color:var(--em2);margin-top:5px;font-weight:500}
+.artist .hd .m{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);text-align:right;white-space:nowrap;line-height:1.4}
+.song{display:grid;grid-template-columns:1fr auto auto;gap:0 14px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.song .t{font-size:16px;font-weight:500;line-height:1.25}
+.song .t .n{display:block;font-size:12px;color:var(--mid);font-weight:400}
+.song .life{font-family:Syne;font-weight:800;font-size:21px;min-width:36px;text-align:right;letter-spacing:-.02em}
+.song .life.rare{font-family:'IBM Plex Sans';font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.song .tour{min-width:30px;height:28px;padding:0 6px;display:flex;align-items:center;justify-content:center;font-family:Syne;font-weight:800;font-size:13px;border:1px solid var(--line);color:var(--dim);border-radius:3px}
+.song .tour.hot{background:var(--em);border-color:var(--em);color:#1a1a1a;box-shadow:0 0 12px rgba(255,122,61,.5)}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:9;background:var(--bg2);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabs{display:flex;max-width:720px;margin:0 auto}
+.tab{flex:1;background:none;border:0;color:var(--mid);padding:14px 2px;font-family:Syne;font-weight:700;font-size:13px;cursor:pointer;position:relative}
+.tab.on{color:var(--wh)}
+.tab.on::after{content:"";position:absolute;left:20%;right:20%;top:0;height:2px;background:var(--em);box-shadow:0 0 10px var(--em)}
+section{display:none}section.on{display:block}
+.empty{text-align:center;color:var(--mid);padding:30px 0;font-family:Syne;font-weight:700;font-size:15px}
+</style>
+</head>
+<body>
+<div id="demo"></div>
+<div class="wrap">
+<header>
+  <p class="k">Brandi Carlile · All Request Tour</p>
+  <h1>Burn the<br><span>Setlist</span></h1>
+  <p class="sub">Fall 2026 · 15 nights</p>
+</header>
+<section id="board" class="on"></section>
+<section id="shows"><div class="empty">Setlists tab in the full build.</div></section>
+<section id="orig"><div class="empty">Originals tab in the full build.</div></section>
+<section id="cov">
+  <input class="search" placeholder="Search covers by song or artist">
+  <div class="bar2"><div class="count"></div><div class="sortbar"><button class="on" data-s="az">By artist</button><button data-s="most">Most played</button></div></div>
+  <div class="list"></div>
+</section>
+<section id="xmas"><div class="empty">Holiday tab in the full build.</div></section>
+</div>
+<nav><div class="tabs" id="tabs">
+  <button class="tab on" data-t="board">Chart</button><button class="tab" data-t="shows">Setlists</button><button class="tab" data-t="orig">Originals</button><button class="tab" data-t="cov">Covers</button><button class="tab" data-t="xmas">Holiday</button>
+</div></nav>
+<script src="../data.js"></script>
+<script src="_shared.js"></script>
+<script>
+(function(){
+const M=window.M, esc=M.esc;
+if(M.DEMO) document.getElementById('demo').innerHTML='<div class="demo">Sample data preview. Three made up setlists added.</div>';
+const tags=(arr)=>arr.map(t=>`<span class="tag ${t.cls}">${esc(t.txt)}</span>`).join('');
+function board(){
+  const el=document.getElementById('board');
+  let h=`<div class="stats"><div class="stat"><b>${M.done}</b><span>of ${M.SHOWS.length} shows</span></div><div class="stat"><b>${M.uniq}</b><span>diff. songs</span></div><div class="stat"><b>${M.total}</b><span>songs played</span></div></div>`;
+  const lb=M.leaderboard();
+  if(!lb.length){ h+=`<div class="empty">Nothing to rank yet. First setlist lands after ${esc(M.nextShow.city)} on ${esc(M.nextShow.date)}.</div>`; }
+  else{
+    const one=lb[0], max=one.c;
+    h+=`<div class="h2">Most requested</div><div class="one"><div class="k">No. 1</div><div class="t">${esc(one.t)}</div><div class="a">${esc(one.label)}</div><div class="n">${one.c} of ${M.done} nights</div><div>${tags(one.tags)}</div></div>
+    <ol class="lb">`+lb.slice(1).map(r=>`<li><div class="rk">${String(r.rank).padStart(2,'0')}</div><div class="t">${esc(r.t)}</div><div class="c">${r.c}<small>${r.c===1?'night':'nights'}</small></div><div class="a">${esc(r.label)} ${tags(r.tags)}</div><div class="bar"><i style="width:${Math.round(r.c/max*100)}%"></i></div></li>`).join('')+'</ol>';
+  }
+  h+=`<div class="h2">Album scorecard</div>`+M.scorecard().map(a=>`<div class="alb"><div class="nm">${esc(a.name)}<i>${a.year}</i></div><div class="ct">${a.hit} of ${a.tot}</div><div class="tr"><i style="width:${a.pct}%"></i></div></div>`).join('');
+  el.innerHTML=h;
+}
+let sort='az';
+function song(s,sub){
+  const life=s.l!=null?`<div class="life">${s.l}</div>`:`<div class="life rare">under 6</div>`;
+  return `<div class="song"><div class="t">${esc(s.t)}${sub?`<span class="n">${esc(sub)}</span>`:''}</div>${life}<div class="tour${s.c?' hot':''}">${s.c||'·'}</div></div>`;
+}
+function covers(){
+  const sec=document.getElementById('cov'); const q=sec.querySelector('.search').value;
+  let h='';
+  if(sort==='most'){ const arr=M.coverFlat(q); sec.querySelector('.count').textContent=arr.length+' songs'; h=arr.map(s=>song(s,s.a)).join(''); }
+  else{ const {groups,count}=M.coverGroups(q); sec.querySelector('.count').textContent=count+' songs';
+    h=groups.map(g=>`<div class="artist"><div class="hd"><div><b>${esc(g.artist)}</b>${g.known?`<small>known from ${esc(g.known)}</small>`:''}</div><div class="m">${g.songs.length} song${g.songs.length>1?'s':''}${g.tot?`<br>${g.tot} plays`:''}</div></div>${g.songs.map(s=>song(s,s.n)).join('')}</div>`).join(''); }
+  sec.querySelector('.list').innerHTML=h||'<div class="empty">No match.</div>';
+}
+document.querySelector('.search').addEventListener('input',covers);
+document.querySelector('.sortbar').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; sort=b.dataset.s; document.querySelectorAll('.sortbar button').forEach(x=>x.classList.toggle('on',x===b)); covers();});
+const tabs=document.getElementById('tabs');
+function show(id){tabs.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.t===id));document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===id));window.scrollTo(0,0);}
+tabs.addEventListener('click',e=>{const b=e.target.closest('.tab'); if(b) show(b.dataset.t);});
+board(); covers();
+})();
+</script>
+</body>
+</html>

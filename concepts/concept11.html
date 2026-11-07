@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 11. Struck</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#47484c;--bg2:#3b3c40;--bg3:#525357;--wh:#f3f1ec;--mid:#c4c1ba;--dim:#8f8d87;--acc:#e0673a;--line:#5d5e63}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--wh);font-family:Barlow,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:22px 16px 96px}
+.demo{background:var(--acc);color:#1d1d1d;font-family:'Barlow Condensed';font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:6px}
+.cond{font-family:'Barlow Condensed',sans-serif}
+header .k{font-family:'Barlow Condensed';font-weight:700;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--mid);margin:0 0 4px}
+header h1{font-family:'Barlow Condensed';font-weight:900;font-size:clamp(66px,20vw,140px);line-height:.84;margin:0;text-transform:uppercase;letter-spacing:-.01em}
+header h1 .x{position:relative;display:inline-block;color:var(--mid)}
+header h1 .x::after{content:"";position:absolute;left:-3%;right:-3%;top:46%;height:.11em;background:var(--acc);transform:rotate(-3deg);border-radius:2px}
+header .sub{font-family:'Barlow Condensed';font-weight:500;font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin:10px 0 0}
+.stats{display:flex;margin:18px 0 0;border-top:2px solid var(--wh);border-bottom:1px solid var(--line)}
+.stat{flex:1;padding:10px 0}
+.stat b{display:block;font-family:'Barlow Condensed';font-weight:900;font-size:44px;line-height:1}
+.stat span{font-family:'Barlow Condensed';font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
+.h2{font-family:'Barlow Condensed';font-weight:700;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);margin:30px 0 10px}
+.one{background:var(--bg2);padding:18px 16px 16px;position:relative;margin-bottom:10px}
+.one::before{content:"01";position:absolute;right:12px;top:8px;font-family:'Barlow Condensed';font-weight:900;font-size:64px;line-height:1;color:var(--bg3)}
+.one .t{font-family:'Barlow Condensed';font-weight:900;font-size:clamp(40px,12vw,76px);line-height:.9;text-transform:uppercase;position:relative}
+.one .a{font-size:14px;color:var(--mid);margin-top:8px}
+.one .n{font-family:'Barlow Condensed';font-weight:700;font-size:26px;margin-top:10px;color:var(--acc);text-transform:uppercase;letter-spacing:.04em}
+.tag{display:inline-block;font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:3px 7px;margin:6px 4px 0 0;background:var(--bg3);color:var(--wh)}
+.tag.bust{background:var(--acc);color:#1d1d1d}
+.lb{list-style:none;margin:0;padding:0}
+.lb li{display:grid;grid-template-columns:50px 1fr auto;gap:0 10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.lb .rk{grid-area:1/1/3/2;font-family:'Barlow Condensed';font-weight:900;font-size:38px;color:var(--dim);line-height:1}
+.lb .t{grid-area:1/2/2/3;font-family:'Barlow Condensed';font-weight:700;font-size:27px;line-height:1;text-transform:uppercase}
+.lb .a{grid-area:2/2/3/3;font-size:13px;color:var(--mid);margin-top:4px}
+.lb .c{grid-area:1/3/3/4;font-family:'Barlow Condensed';font-weight:900;font-size:32px;text-align:right;line-height:1}
+.lb .c small{display:block;font-family:'Barlow Condensed';font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
+.lb .bar{grid-area:3/2/4/4;height:6px;background:var(--bg2);margin-top:8px;transform:skewX(-20deg)}
+.lb .bar i{display:block;height:100%;background:var(--acc)}
+.alb{display:grid;grid-template-columns:1fr auto;gap:0 10px;padding:9px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.alb .nm{font-family:'Barlow Condensed';font-weight:700;font-size:22px;text-transform:uppercase}
+.alb .nm i{font-style:normal;font-family:Barlow;font-size:12px;color:var(--mid);margin-left:6px;text-transform:none}
+.alb .ct{font-family:'Barlow Condensed';font-weight:900;font-size:20px;color:var(--acc)}
+.alb .tr{grid-column:1/3;height:6px;background:var(--bg2);margin-top:6px;transform:skewX(-20deg)}
+.alb .tr i{display:block;height:100%;background:var(--wh)}
+.search{width:100%;padding:13px 14px;border:2px solid var(--line);background:var(--bg2);color:var(--wh);font-size:16px;font-family:inherit;margin:0 0 10px;border-radius:0}
+.search::placeholder{color:var(--dim)}
+.search:focus{outline:none;border-color:var(--acc)}
+.bar2{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.count{font-family:'Barlow Condensed';font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)}
+.sortbar{display:flex;gap:2px}
+.sortbar button{border:0;background:var(--bg2);color:var(--mid);padding:7px 12px;font-family:'Barlow Condensed';font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transform:skewX(-12deg)}
+.sortbar button span{display:inline-block;transform:skewX(12deg)}
+.sortbar button.on{background:var(--wh);color:#1d1d1d}
+.artist{margin-top:26px}
+.artist .hd{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;padding-bottom:6px;border-bottom:2px solid var(--wh);position:relative}
+.artist .hd b{font-family:'Barlow Condensed';font-weight:900;font-size:32px;line-height:.95;text-transform:uppercase}
+.artist .hd small{display:block;font-family:Barlow;font-size:12.5px;color:var(--acc);margin-top:4px;text-transform:none;font-weight:500}
+.artist .hd .m{font-family:'Barlow Condensed';font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);white-space:nowrap;text-align:right;line-height:1.3}
+.song{display:grid;grid-template-columns:1fr auto auto;gap:0 14px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.song .t{font-size:16.5px;font-weight:500;line-height:1.25}
+.song .t .n{display:block;font-size:12px;color:var(--mid);font-weight:400}
+.song .life{font-family:'Barlow Condensed';font-weight:900;font-size:25px;min-width:36px;text-align:right}
+.song .life.rare{font-family:Barlow;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.song .tour{min-width:32px;height:28px;padding:0 6px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:900;font-size:17px;background:var(--bg2);color:var(--dim);transform:skewX(-12deg)}
+.song .tour span{transform:skewX(12deg)}
+.song .tour.hot{background:var(--acc);color:#1d1d1d}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:9;background:var(--bg2);border-top:2px solid var(--wh);padding-bottom:env(safe-area-inset-bottom)}
+.tabs{display:flex;max-width:720px;margin:0 auto}
+.tab{flex:1;background:none;border:0;color:var(--mid);padding:13px 2px;font-family:'Barlow Condensed';font-weight:700;font-size:17px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.tab.on{color:var(--wh);background:var(--bg);box-shadow:inset 0 3px 0 var(--acc)}
+section{display:none}section.on{display:block}
+.empty{text-align:center;color:var(--mid);padding:30px 0;font-family:'Barlow Condensed';font-size:18px;letter-spacing:.1em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div id="demo"></div>
+<div class="wrap">
+<header>
+  <p class="k">Brandi Carlile · Fall 2026</p>
+  <h1>Burn the<br><span class="x">Setlist</span></h1>
+  <p class="sub">The all request tour</p>
+</header>
+<section id="board" class="on"></section>
+<section id="shows"><div class="empty">Setlists tab in the full build.</div></section>
+<section id="orig"><div class="empty">Originals tab in the full build.</div></section>
+<section id="cov">
+  <input class="search" placeholder="Search covers by song or artist">
+  <div class="bar2"><div class="count"></div><div class="sortbar"><button class="on" data-s="az"><span>By artist</span></button><button data-s="most"><span>Most played</span></button></div></div>
+  <div class="list"></div>
+</section>
+<section id="xmas"><div class="empty">Holiday tab in the full build.</div></section>
+</div>
+<nav><div class="tabs" id="tabs">
+  <button class="tab on" data-t="board">Chart</button><button class="tab" data-t="shows">Setlists</button><button class="tab" data-t="orig">Originals</button><button class="tab" data-t="cov">Covers</button><button class="tab" data-t="xmas">Holiday</button>
+</div></nav>
+<script src="../data.js"></script>
+<script src="_shared.js"></script>
+<script>
+(function(){
+const M=window.M, esc=M.esc;
+if(M.DEMO) document.getElementById('demo').innerHTML='<div class="demo">Sample data preview. Three made up setlists added.</div>';
+const tags=(arr)=>arr.map(t=>`<span class="tag ${t.cls}">${esc(t.txt)}</span>`).join('');
+function board(){
+  const el=document.getElementById('board');
+  let h=`<div class="stats"><div class="stat"><b>${M.done}</b><span>of ${M.SHOWS.length} shows</span></div><div class="stat"><b>${M.uniq}</b><span>diff. songs</span></div><div class="stat"><b>${M.total}</b><span>songs played</span></div></div>`;
+  const lb=M.leaderboard();
+  if(!lb.length){ h+=`<div class="empty">Nothing to rank yet. First setlist lands after ${esc(M.nextShow.city)} on ${esc(M.nextShow.date)}.</div>`; }
+  else{
+    const one=lb[0], max=one.c;
+    h+=`<div class="h2">Most requested</div><div class="one"><div class="t">${esc(one.t)}</div><div class="a">${esc(one.label)}</div><div class="n">${one.c} of ${M.done} nights</div><div>${tags(one.tags)}</div></div>
+    <ol class="lb">`+lb.slice(1).map(r=>`<li><div class="rk">${String(r.rank).padStart(2,'0')}</div><div class="t">${esc(r.t)}</div><div class="c">${r.c}<small>${r.c===1?'night':'nights'}</small></div><div class="a">${esc(r.label)} ${tags(r.tags)}</div><div class="bar"><i style="width:${Math.round(r.c/max*100)}%"></i></div></li>`).join('')+'</ol>';
+  }
+  h+=`<div class="h2">Album scorecard</div>`+M.scorecard().map(a=>`<div class="alb"><div class="nm">${esc(a.name)}<i>${a.year}</i></div><div class="ct">${a.hit} of ${a.tot}</div><div class="tr"><i style="width:${a.pct}%"></i></div></div>`).join('');
+  el.innerHTML=h;
+}
+let sort='az';
+function song(s,sub){
+  const life=s.l!=null?`<div class="life">${s.l}</div>`:`<div class="life rare">under 6</div>`;
+  return `<div class="song"><div class="t">${esc(s.t)}${sub?`<span class="n">${esc(sub)}</span>`:''}</div>${life}<div class="tour${s.c?' hot':''}"><span>${s.c||'·'}</span></div></div>`;
+}
+function covers(){
+  const sec=document.getElementById('cov'); const q=sec.querySelector('.search').value;
+  let h='';
+  if(sort==='most'){ const arr=M.coverFlat(q); sec.querySelector('.count').textContent=arr.length+' songs'; h=arr.map(s=>song(s,s.a)).join(''); }
+  else{ const {groups,count}=M.coverGroups(q); sec.querySelector('.count').textContent=count+' songs';
+    h=groups.map(g=>`<div class="artist"><div class="hd"><div><b>${esc(g.artist)}</b>${g.known?`<small>known from ${esc(g.known)}</small>`:''}</div><div class="m">${g.songs.length} song${g.songs.length>1?'s':''}${g.tot?`<br>${g.tot} plays`:''}</div></div>${g.songs.map(s=>song(s,s.n)).join('')}</div>`).join(''); }
+  sec.querySelector('.list').innerHTML=h||'<div class="empty">No match.</div>';
+}
+document.querySelector('.search').addEventListener('input',covers);
+document.querySelector('.sortbar').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; sort=b.dataset.s; document.querySelectorAll('.sortbar button').forEach(x=>x.classList.toggle('on',x===b)); covers();});
+const tabs=document.getElementById('tabs');
+function show(id){tabs.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.t===id));document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===id));window.scrollTo(0,0);}
+tabs.addEventListener('click',e=>{const b=e.target.closest('.tab'); if(b) show(b.dataset.t);});
+board(); covers();
+})();
+</script>
+</body>
+</html>
