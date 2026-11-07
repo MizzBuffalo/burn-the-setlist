@@ -17,11 +17,6 @@ body{margin:0;background:var(--bg);color:var(--wh);font-family:Barlow,system-ui,
 .wrap{max-width:720px;margin:0 auto;padding:24px 16px calc(84px + env(safe-area-inset-bottom))}
 .anton{font-family:Anton,Impact,sans-serif;font-weight:400}
 /* masthead */
-header{position:relative}
-header canvas{position:absolute;left:-16px;right:-16px;top:-40px;width:calc(100% + 32px);height:calc(100% + 60px);pointer-events:none;z-index:0}
-header>*{position:relative;z-index:1}
-header h1 span{display:inline-block;filter:url(#haze)}
-@media (prefers-reduced-motion:reduce){header h1 span{filter:none}header canvas{display:none}}
 header .k{font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--mid);margin:0 0 6px}
 header h1{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(64px,19vw,130px);line-height:.86;margin:0;text-transform:uppercase;letter-spacing:.005em}
 header h1 span{color:var(--acc)}
@@ -126,10 +121,8 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:9;background:#000;border-top:
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="haze" x="-5%" y="-10%" width="110%" height="130%"><feTurbulence id="hz" type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
 <div class="wrap">
 <header>
-  <canvas id="fire" aria-hidden="true"></canvas>
   <p class="k">Brandi Carlile</p>
   <h1>Burn the<br><span>Setlist</span></h1>
   <p class="sub">All Request Tour · Fall 2026</p>
@@ -278,34 +271,5 @@ const h=location.hash.slice(1); if(h&&document.getElementById(h)) show(h);
 })();
 </script>
 
-<script>
-(function(){
-if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-const cv=document.getElementById('fire'), ctx=cv.getContext('2d');
-const word=document.querySelector('header h1 span');
-let W,H,dpr,base,x0,x1;
-function size(){dpr=Math.min(devicePixelRatio||1,2);const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
-  const wr=word.getBoundingClientRect(), cr=cv.getBoundingClientRect(); base=wr.bottom-cr.top-6; x0=wr.left-cr.left; x1=wr.right-cr.left;}
-size(); addEventListener('resize',size); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(size);
-const P=[]; const N=34;
-function spawn(p){p.x=x0+Math.random()*(x1-x0);p.y=base+Math.random()*10;p.r=.6+Math.random()*1.6;p.vy=-(.25+Math.random()*.55);p.vx=(Math.random()-.5)*.2;p.life=0;p.max=120+Math.random()*160;p.w=Math.random()*6.28;p.hot=Math.random()<.35;}
-for(let i=0;i<N;i++){const p={};spawn(p);p.life=Math.random()*p.max;P.push(p);}
-const SM=[];for(let i=0;i<5;i++)SM.push({x:x0+Math.random()*(x1-x0),y:base-20-Math.random()*60,r:50+Math.random()*50,a:Math.random()*6.28,s:.08+Math.random()*.08});
-let t=0,hz=document.getElementById('hz');
-function frame(){
-  t++; ctx.clearRect(0,0,W,H);
-  ctx.globalCompositeOperation='lighter';
-  SM.forEach(b=>{b.a+=.004;b.y-=b.s;b.x+=Math.sin(b.a)*.25;if(b.y<-b.r){b.y=base+10;b.x=x0+Math.random()*(x1-x0);}
-    const g=ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,b.r);const k=Math.max(0,1-(base-b.y)/(base+b.r))*.07;g.addColorStop(0,`rgba(255,255,255,${k})`);g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,6.28);ctx.fill();});
-  P.forEach(p=>{p.life++; if(p.life>p.max||p.y<-10) spawn(p); p.w+=.05; p.x+=p.vx+Math.sin(p.w)*.25; p.y+=p.vy; const f=p.life/p.max; const a=f<.15?f/.15:1-(f-.15)/.85;
-    ctx.fillStyle=p.hot?`rgba(255,${150+Math.floor(80*(1-f))},70,${a*.95})`:`rgba(184,53,47,${a*.8})`; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.28); ctx.fill();
-    if(p.hot&&p.r>1.4){ctx.fillStyle=`rgba(255,160,90,${a*.18})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r*3,0,6.28);ctx.fill();}});
-  ctx.globalCompositeOperation='source-over';
-  if(hz&&t%2===0){hz.setAttribute('baseFrequency',(0.012+Math.sin(t/90)*0.003).toFixed(4)+' '+(0.05+Math.cos(t/70)*0.012).toFixed(4));hz.setAttribute('seed',String(1+Math.floor(t/40)%7));}
-  if(!document.hidden) requestAnimationFrame(frame); else setTimeout(frame,250);
-}
-requestAnimationFrame(frame);
-})();
-</script>
 </body>
 </html>
