@@ -9,7 +9,6 @@ window.SHOWS=[
    "Follow",
    "A War with Time",
    "Pride and Joy",
-   "Fake Plastic Trees",
    "Human",
    "Keep Your Heart Young",
    "Bring My Flowers Now",
