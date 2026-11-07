@@ -136,6 +136,34 @@ window.SHOWS=[
   "city": "Port Chester, NY",
   "venue": "The Capitol Theatre",
   "setlist": []
+ },
+ {
+  "n": 16,
+  "date": "Jan 5",
+  "city": "Seattle, WA",
+  "venue": "Paramount Theatre",
+  "setlist": []
+ },
+ {
+  "n": 17,
+  "date": "Jan 6",
+  "city": "Seattle, WA",
+  "venue": "Paramount Theatre",
+  "setlist": []
+ },
+ {
+  "n": 18,
+  "date": "Jan 9",
+  "city": "Seattle, WA",
+  "venue": "Paramount Theatre",
+  "setlist": []
+ },
+ {
+  "n": 19,
+  "date": "Jan 10",
+  "city": "Seattle, WA",
+  "venue": "Paramount Theatre",
+  "setlist": []
  }
 ];
 window.BUSTOUTS={};
